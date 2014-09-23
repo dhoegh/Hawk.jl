@@ -1,5 +1,8 @@
 using Hawk
 using Base.Test
 
-# write your own tests here
-@test 1 == 1
+@constants begin
+    a=10
+end
+
+@test isconst(:a)
