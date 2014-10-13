@@ -1,6 +1,8 @@
 module Hawk
+using PyCall
+@pyimport Hawk as h
 
-export @constants
+export @constants, latexplot
 macro constants(exprs)
     for (i,exp) in enumerate(exprs.args)
         if exp.head==:(=)
@@ -10,4 +12,7 @@ macro constants(exprs)
     return esc(exprs)
 end
 
+function latexplot(args...; kws...)
+	h.latexplot(args...; kws...)
+end
 end # module
