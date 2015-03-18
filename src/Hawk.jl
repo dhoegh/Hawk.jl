@@ -24,6 +24,10 @@ end
 function latexplot(f::Function, args...; kws...)
 	Hawkpy[:latexplot](args...; kws...)
     f()
+    latexplot_reset()
+end
+
+function latexplot_reset()
     Hawkpy[:latexplot_reset]()
 end
 
