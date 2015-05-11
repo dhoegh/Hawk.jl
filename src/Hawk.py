@@ -67,7 +67,7 @@ def euler_angles(radians,axis):
         R=R.dot(R_temp[:,:,i+1])
     return R
 
-def latexplot(ratio=1):
+def latexplot(page_ratio=1, aspect_ratio=(np.sqrt(5)-1.0)/2.0): # Aesthetic ratio
     """
     A function to create latex plots without scaling them. Input the ratio of the page width it should fill, it takes into acount the there is 8mm in hspace.
     Please use plt.savefig('test.pdf'), because it will save the figure so all the text is inside the figure or use the plt.tight_layout(),
@@ -84,13 +84,12 @@ def latexplot(ratio=1):
         Hawk.latexplot(1)
 
     """
-    number_of_plot=1/ratio
+    number_of_plot=1/page_ratio
     # imperical 25mm is added i think it's due to tight layout                    equivilent to 8 mm of hspace
     fig_width_mm = (160+25)/number_of_plot-(8*number_of_plot-1) # Get this from LaTeX using \showthe\columnwidth 426 pt
-    inches_per_mm = 1.0/25.4               # Convert pt to inch
-    golden_mean = (np.sqrt(5)-1.0)/2.0         # Aesthetic ratio
+    inches_per_mm = 1.0/25.4               # Convert pt to inch     
     fig_width = fig_width_mm*inches_per_mm  # width in inches
-    fig_height = fig_width*golden_mean      # height in inches
+    fig_height = fig_width*aspect_ratio      # height in inches
     fig_size =  [fig_width,fig_height]
 
     plt.rcParams['backend'] = 'pdf'
@@ -113,12 +112,13 @@ def latexplot(ratio=1):
 
     plt.rcParams['lines.markersize'] = 4
     #maybe get some legend paremeter in here since there is much space in a small legend
-
-    plt.rcParams['legend.handlelength'] = 1.2+0.6*ratio     # the length of the legend lines in fraction of fontsize
-    plt.rcParams['legend.handletextpad'] = 0.2+0.6*ratio   # the space between the legend line and legend text in fraction of fontsize
-    plt.rcParams['legend.labelspacing'] =  0.1+0.4*ratio   # the vertical space between the legend entries in fraction of fontsize
-    plt.rcParams['legend.borderpad'] = 0.4+0.2*ratio    # border whitespace in fontsize units
-    plt.rcParams['lines.markeredgewidth'] = 0.25*ratio     # the line width around the marker symbol
+    ratio_lengend = 1/4.3311043306095 #page_ratio/fig_height with default aspect_ratio.
+    ratio_lengend *= fig_height # this is done to convert old format to be defined by height instead of width
+    plt.rcParams['legend.handlelength'] = 1.2+0.6*ratio_lengend     # the length of the legend lines in fraction of fontsize
+    plt.rcParams['legend.handletextpad'] = 0.2+0.6*ratio_lengend   # the space between the legend line and legend text in fraction of fontsize
+    plt.rcParams['legend.labelspacing'] =  0.1+0.4*ratio_lengend   # the vertical space between the legend entries in fraction of fontsize
+    plt.rcParams['legend.borderpad'] = 0.4+0.2*ratio_lengend    # border whitespace in fontsize units
+    plt.rcParams['lines.markeredgewidth'] = 0.25*ratio_lengend     # the line width around the marker symbol
 
     return
 
