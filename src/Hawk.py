@@ -6,66 +6,12 @@ Created on Sat Nov 16 20:57:57 2013
 """
 from __future__ import print_function
 from __future__ import division
-import numpy as np
-from numpy import cos, sin, array
 import matplotlib.pyplot as plt
 import subprocess
 import os, time
-import signal
-import fnmatch
 import re
 
 rcdef = plt.rcParams.copy()
-
-def Rotation_matrix(radians,size=2,*axis):
-    """
-
-    Calculates the rotation matrix in both 2d and 3d the angle is given from current coordinatesystem to new, if used in context of morh´s circle it is done like this::
-
-        stresses_w_b=Hawk.Rotation_matrix(pi/4,3,'z').T.dot(sigma_w_b.dot(Hawk.Rotation_matrix(pi/4,3,'z')))
-    In dynamics use::
-
-        Hawk.Rotation_matrix(pi/2,3,'z')
-
-    """
-    if size==2:
-        R=array([[cos(radians),-sin(radians)],[sin(radians),cos(radians)]])
-
-    if size==3:
-        if axis[0]=='x':
-            R=array([[1,0,0],[0,cos(radians),-sin(radians)],[0,sin(radians),cos(radians)]])
-        elif axis[0]=='y':
-            R=array([[cos(radians),0,sin(radians)],[0,1,0],[-sin(radians),0,cos(radians)]])
-        elif axis[0]=='z':
-            R=array([[cos(radians),-sin(radians),0],[sin(radians),cos(radians),0],[0,0,1]])
-        else:
-            print('No rotation axis is choosen')
-            return
-    return R
-
-def euler_angles(radians,axis):
-    """
-    ========
-    Calculates the euler angle transformation matrix
-    ========
-    --------
-    Examples
-    --------
-    >>> euler_angles([60*np.pi/180,150*np.pi/180,45*np.pi/180],['z','x','z'])
-    array([[ 0.88388348,  0.1767767 ,  0.4330127 ],
-       [ 0.30618622, -0.91855865, -0.25      ],
-       [ 0.35355339,  0.35355339, -0.8660254 ]])
-    """
-    if len(radians)!=len(axis):
-        print('Mismatch of dimension of the input')
-        return
-    R_temp=np.zeros((3,3,len(radians)))
-    for i in range(len(radians)):
-        R_temp[:,:,i]=Rotation_matrix(radians[i],3,axis[i])
-    R=R_temp[:,:,0]
-    for i in range(len(radians)-1):
-        R=R.dot(R_temp[:,:,i+1])
-    return R
 
 def latexplot(page_ratio=1, aspect_ratio=(np.sqrt(5)-1.0)/2.0): # Aesthetic ratio
     """
