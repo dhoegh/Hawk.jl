@@ -6,6 +6,7 @@ Created on Sat Nov 16 20:57:57 2013
 """
 from __future__ import print_function
 from __future__ import division
+import numpy as np
 import matplotlib.pyplot as plt
 import subprocess
 import os, time
