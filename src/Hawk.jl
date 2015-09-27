@@ -1,4 +1,5 @@
 module Hawk
+import PyPlot
 using PyCall
 
 filename = abspath(joinpath(dirname(@__FILE__),"Hawk.py"))
@@ -6,7 +7,7 @@ filename = abspath(joinpath(dirname(@__FILE__),"Hawk.py"))
 if PyCall.pyversion < v"3"
 	@pyimport imp
 	(path, name) = dirname(filename), basename(filename)
-    (name, ext) = rsplit(name, '.', limit=2)
+    (name, ext) = rsplit(name, '.', 2)
 
     (file, filename, data) = imp.find_module(name, [path])
     Hawkpy = imp.load_module(name, file, filename, data)
