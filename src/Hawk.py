@@ -40,14 +40,14 @@ def latexplot(page_ratio=1, aspect_ratio=(np.sqrt(5)-1.0)/2.0): # Aesthetic rati
     fig_size =  [fig_width,fig_height]
 
     plt.rcParams['backend'] = 'pdf'
-    plt.rcParams['font.family'] = 'serif'
-    plt.rcParams['font.serif'] = 'serif'
+    #plt.rcParams['font.family'] = 'serif'
+    #plt.rcParams['font.serif'] = 'serif'
     plt.rcParams['font.size'] = 10
     plt.rcParams['axes.labelsize'] =10
     plt.rcParams['legend.fontsize'] =10
     plt.rcParams['xtick.labelsize'] = 10
     plt.rcParams['ytick.labelsize'] = 10
-    plt.rcParams['text.usetex'] = True
+    #plt.rcParams['text.usetex'] = True
     plt.rcParams['savefig.bbox'] ='tight'
     plt.rcParams['figure.facecolor'] = 'white'
     plt.rcParams['figure.figsize'] = fig_size
